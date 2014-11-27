@@ -1,0 +1,11 @@
+
+	Byte Order Mark
+
+字节序标记。UTF－8不需要表明字节序，但可以用BOM表明编码方式。
+UTF－8	EF BB BF
+UTF－16 大端	FE FF
+UTF－16 小端	FF FE
+UTF－32	大端	00 00 FE FF
+UTF－32 小端	FF FE 00 00
+
+
