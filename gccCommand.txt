@@ -1,11 +1,30 @@
 
 g++ -dynamiclib -o xx.dylib xx.cc
 
-g++ -c hello.cc			-- 生成.o文件
-ar -crv libhello.a hello.	-- 生成.a文件
+ar -crv libhello.a hello.	-- 生成静态库文件
 
 g++ -shared -fPIC -o hello.so hello.o	-- 生成.so文件o
 
 gcc -O2 -bundle -undefined dynamic_lookup -o xx.so xx.c
 mac 下编译成.so文件供lua使用 -bundle -undefined dynamic_lookup 是mac下使用选项.
 bundle是mac使用的文件格式。不加选项会引起multiple lua vms detected错误.
+
+gcc -E -o test.i test.c	-- 预处理
+gcc -S -o test.s test.i	-- 生成汇编代码 预处理和编译
+gcc -c -o test.o test.s	-- 生成目标文件 预处理，编译和汇编
+gcc -o test test.o		-- 自动链接库文件
+gcc -I/usr/include -o test.o test.c	-- 搜索头文件 -I- 取消
+gcc -L/usr/lib	-o test.o test.c	-- 搜索链接库文件 -ltest.so 使用test.so 动态库
+gcc -x language filename	-- 设定文件使用的语言 gcc -x c test.pig 使用c语言
+-ansi	关闭gnu c中与ansi c不兼容的特性，激活ansi c的专有特性
+-O0, -O1, -O2, -O3编译器优化选项
+-ggdb	生成gdb的可以使用的调试信息
+-static 禁止使用动态库
+-share 尽量使用动态库
+-shared	生成共享目标文件。
+-fpic 如果支持这种目标机，编译器就生成位置无关目标码，适用共享库
+-fPIC 如果支持这种目标机，输出位置无关目标码，适用于动态链接。
+
+ld(gnu linker)
+	链接选项适用ld 里面的命令选项
+	-undeined treatment		-- specifies how undefined symbols are to be treated. Options are: error, warning, suppress, or dynamic_lookup.default is error.
