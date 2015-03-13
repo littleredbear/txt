@@ -3,3 +3,9 @@ git add "file"
 git add *
 git commit -m "msg"
 
+git config user.name reid
+git config user.email reid@reid.com
+
+git init
+git remote add http://xxxx
+git branch -u origin/master

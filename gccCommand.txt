@@ -1,0 +1,11 @@
+
+g++ -dynamiclib -o xx.dylib xx.cc
+
+g++ -c hello.cc			-- 生成.o文件
+ar -crv libhello.a hello.	-- 生成.a文件
+
+g++ -shared -fPIC -o hello.so hello.o	-- 生成.so文件o
+
+gcc -O2 -bundle -undefined dynamic_lookup -o xx.so xx.c
+mac 下编译成.so文件供lua使用 -bundle -undefined dynamic_lookup 是mac下使用选项.
+bundle是mac使用的文件格式。不加选项会引起multiple lua vms detected错误.
