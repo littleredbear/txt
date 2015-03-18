@@ -1,0 +1,8 @@
+
+
+c调用lua:
+	lua_State *L = luaL_newstate();
+	luaL_loadfile(L, "xx.lua");
+	loaL_openlibs(L);
+	lua_pcall(L, 0, LUA_MULTRET, 0);	-- 执行匿名函数，将所有返回值压入栈中
+	lua_getglobal(L, "xx");

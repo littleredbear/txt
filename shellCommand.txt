@@ -1,0 +1,252 @@
+
+bashrc	/etc/bashrc	, .bash_profile设置PS1
+	bash配置文件。PS1：设置bash提示符
+
+
+bash配色方案:
+	\e[F;B;Cm	--F是前景色，B是背景色，C是代码
+	\e[0m	\e[m	都是通知终端将颜色设置为默认。
+
+	前景		背景
+	30			40			黑色
+	31			41			红色
+	32			42			绿色
+	33			43			黄色
+	34			44			蓝色
+	35			45			紫红色
+	36			46			青蓝色
+	37			47			白色
+
+	代码颜色
+	0			OFF
+	1			高亮显示
+	4			underline
+	5			闪烁
+	7			反白显示
+	8			不可见
+
+
+cat 命令：
+	cat filename	－此显示整个文件。
+	cat > filename	创建文件	以ctrl＋d作为输入结束
+	cat file1 file2 > file	将文件合并
+
+	cat << EOF 以EOF作为输入结束 也可以是cat << OOO 以OOO作为输入结束
+
+
+
+unset:	变量未设置，变量从未声明或者被unset命令重置
+null:	变量声明但未被赋值(var=)或者赋值成空(var＝"");
+not null:	变量被赋值
+
+$符号：变量替换		b=$a	变量a赋值给b
+	${parameter}	展开变量parameter这个值, 帮助解释器识别变量的边界。
+	${parameter:-word}	--假如parameter为unset或者null，则展开后返回word的值。
+	${parameter-word}	--假如parameter为unset，则展开后返回word的值。
+	${parameter:=word}	--假如parameter为unset或者null，将word赋值给parameter。
+	${parameter=word}	--假如parameter为unset，将word赋值给parameter。
+	${parameter:?word}	--假如parameter为unset或者null，将word作为错误输出到标准输出
+	${parameter?word}	--假如parameter为unset，将word作为错误输出到标准输出
+	${parameter:+word}	--假如parameter为unset或者null，不做展开返回空。
+	${parameter+word}	--假如parameter为unset，不做展开，返回空。
+	
+file=/dir1/dir2/dir3/my.file.txt
+${file#*/};		-- 去掉第一条/及其左边的字符串: dir1/dir2/dir3/my.file.txt
+${file##*/};	-- 去掉最后一条/及其左边的字符串: my.file.txt
+${file#*.};		-- 去掉第一个.及其左边的字符串:file.txt
+${file##*.};	-- 去掉最后一个.及其左边的字符串: txt
+${file%/*};		-- 去掉最后一个/及其右边的字符串: /dir1/dir2/dir3
+${file$$/*};	-- 去掉第一个/及其右边的字符串: (空)
+${file%.*};		-- 去掉最后一个.及其右边的字符串: /dir1/dir2/dir3/my.file
+${file%%.*};	-- 去掉第一个.及其右边的字符串: /dir1/dir2/dir3/my
+
+${file:5:5}		-- 提取第5个字节右边的连续5个字节: /dir2
+
+${file/dir/path}	-- 将第一个dir替换为path
+${file//dir/path}	-- 将全部dir替换为path
+
+${#file}	   -- 可计算出变量值的长度。 （得到27./dir1/dir2/dir3/my.file.txt)
+
+A=(a b c def)	-- 将$A定义为数组
+${A[@]} 或 ${A[*]} 得到全部元素a b c def
+
+$(())		-- 用作整数运算:	$((a+b-c))
+
+$(command)		-- 命令替换
+
+$0	当前脚本的文件名 当使用source来运行脚本时，返回－bash
+$n	传递给脚本或函数的参数。$1，是第一个参数。$2是第二个参数。超过9时用大括号 ${10}
+$* 和 $@都表示传递给函数或脚本的所有参数，不被双引号包含时，都以"$1""$2"...的形式输出所有参数。当它们被双引号包含时，"$*"会将所有的参数作为一个整体，"$@"会将各个参数分开。
+
+set 命令能设置所使用shell的执行方式。
+
+set -e		-- 告诉bash如果任何语句的执行结果不是true则应该退出。防止错误像滚雪球般变大导致一个致命的错误。
+
+set -x		-- 用于脚本调试。set -x 是开启。 set +x是关闭。
+				先显示该指令及所下的参数。
+
+	+<参数>	-- 取消某个set曾启动的参数
+
+单引号	-- 内部所有的shell元字符，通配符都会被关闭。(不允许出现单引号)。
+
+双引号：使用双引号除了变量名前缀($),反引符(`)(用作命令替换)和转义符(\)外，会使shell不再解释引号中其它所有的特殊字符。
+
+方括号	-- 条件表达式要放在方括号里面。
+
+条件表达式:
+	if 条件 then command else command fi 
+	if 条件 then command fi
+	if [ exp ] then  表达式结果为真，则返回0，引向then
+	if test exp then 表达式为假，返回非0，引向then
+
+	[ -f "/etc/shadow" ] && echo "adb"  -- 如果左边为真则执行右边的语句
+文件表达式:
+	if [ -f file ]	-- 如果文件存在
+	if [ -d ... ]	-- 如果目录存在
+	if [ -s file ]	-- 如果文件存在且非空
+	if [ -r file ]	-- 如果文件存在且可读
+	if [ -w file ]	-- 如果文件存在且可写
+	if [ -x file ]	-- 如果文件存在且可执行
+	[ -e file ]		-- 如果file存在则为真
+
+	[ -z string ]	-- 如果string长度为0则为真
+
+tr:
+	tr [ options ] source-char-list replace-char-list
+	用途：转换字符。source-char-list 用于查询，replace-char-list用于替换查询到的字符。
+	-c	-- 取source-char-list的反义。tr要转换的字符，变成未列在source-char-list 中的字符。
+	echo hello | tr -c 'hel' 'a'	被替换成	hellaa (最后有个\n被替换)
+	-s	-- 删除所有重复的字符，只保留第一个。
+	-d	-- 删除source-char-list 中所有输入字符。
+
+特殊文件：
+	/dev/null : 传送到此文件的数据会被系统丢掉。也就是说，当程序将数据写到此文件时，会认为它已成功完成写入数据的操作，但实际上什么事都没做。
+	/dev/tty  : 当程序打开此文件时，UNIX会自动将它重定向到一个终端或串行端口，也可能时一个通过网络与窗口登录的伪终端再与程序结合。stty(set tty)命令用来控制终端的各种设置。-echo 用来关闭自动打印输入字符。echo 恢复。
+
+sed:
+	非交互式编辑器。sed把当前正在处理的行保存在一个临时缓存区，然后处理临时缓冲区的行。
+	定址：定址是一个数字，则表示行号，是"$"，则表示最后一行。
+	sed -n '3p' datafile	打印第三行
+	sed -n '100,200p' datafile	查看100到200行内容。
+	地址是逗号分隔的，那么需要处理的地址是这两行的范围。范围可以用数字，正则表达式或者二者的组合。
+	sed '2,5d' datafile		删除第二到第五行
+	sed '/My/,/You/d' datafile		删除包含’My‘的行到包含’You‘的行之间的行
+	sed '/My/,10d' datafile			删除包含‘My’的行到第十行的内容
+
+	sed 's/My/You/g' datafile		s是替换命令。跟在后面的符号会成为分隔符。g是全部替换
+
+
+cut:
+	用途：从输入文件中选择一个或多个字段或一组字符。
+	-c list -- 以字符为主,执行剪下的操作，list为字符编号或范围列表。以逗号隔开。如 1，3，5-12
+	-d delim	-- 通过-f选项，使用delim作为定界符。
+	-f list		-- 以字段为主，作剪下操作。list为字段编号或一段范围列表。以逗号隔开
+
+
+grep:
+	-E	使用扩展正则表达式进行匹配。ERE
+	-F	使用固定字符串进行匹配。
+	-e	模式以减号开头时，grep会混淆，而将它视为选项。-e可以指定其参数为模式，即使它以减号开头。
+	-f pat-file	从pat-file 文件读取模式作匹配
+	-i	模式匹配时忽略字母大小写差异
+	-l	列出匹配模式的文件名称，而不是打印匹配的行
+	-q	如果匹配成功，则grep会成功地离开，而不将匹配地行写入标准输出。否则不成功
+	-s	不显示错误信息。
+	-v	显示不匹配模式的行
+
+BRE:
+	\{n,m\}		-- 区间表达式，
+	\(\)		-- 匹配于子模式的文本，可通过转以序列\1至\9，被重复使用在相同模式里。例如\(ab\)\(cd\).*\2\1, adcd....cdab 匹配
+
+POSIX字符集:
+	[:alnum:]	数字字符		[:alpha:]	字母字符
+	[:blank:]	空格			[:cntrl:]	控制字符
+	[:digit:]	数字字符		[:graph:]	非空格
+	[:lower:]	小写字母		[:print:]	可显示字符
+	[:punct:]	标点符号		[:space:]	空白字符
+	[:upper:]	大写字母		[:xdigit:]	十六进制
+
+额外的GNU正则表达式运算符:
+	\w	匹配任何单词组成的字符
+	\W	匹配任何非单词组成的字符
+	\< 与 \> 运算符，分别匹配单词的开头与结尾。
+	\b	匹配单词的起始与结尾.这是\<与\>运算符的结合
+	\B	匹配两个单词组成字符之间的空字符串
+
+
+awk:
+	awk '{pattern + action}' {filenames}
+	awk -F: '{print $1, $5}' /etc/passwd
+	-F	-- 设定域分隔符。默认域分隔符是空格。
+
+条件语句
+if pipeline
+then
+	statements
+elif pipeline
+then
+	statements
+else
+	statements
+fi
+
+case 语句:
+case $1 in
+-f)
+	...
+	;;
+-d)
+	...
+	;;
+*)
+	..
+	;;
+esac
+
+最后的*模式是传统用法，但非必须的，它作为一个默认的情况。
+
+for循环:
+	for i in at*.xml
+	do
+		echo $i
+	done
+
+
+while , until:
+	while dondition
+	do
+		statements
+	done
+
+	until condition
+	do 
+		statements
+	done
+
+while 与 until唯一不同之处在于，如何对待condition的退出状态。只要condition是成功退出，while会继续循环。只要condition未成功结束，until则执行循环。
+
+函数:
+	函数在使用前必须先定义。可通过在脚本的起始处，或将它们放在另一个独立文件里且以点号命令(.)来取用它们(source)。
+	wait_for_user() {
+		untile who | grep "$1" > /dev/null
+		do
+			sleep $(2:-30)
+		done
+	}
+
+wait_for_user tolstoy	等待用户tolstoy，每30秒检查一次
+wait_for_user tolstoy 60	等待用户tolstoy，没60秒检查一次
+在函数体中，位置参数($1,$2,...,$#,$*,$@)都是函数的参数。父脚本的参数临时被函数参数所掩盖。$0依旧是父脚本的名称。当函数完成时，原来的命令行参数会恢复。
+在函数里，return的功能与工作方式与exit相同。在函数里使用exit，会终止整个脚本。
+将函数写入文件，然后在其它shell中调用函数：首先要载入函数文件，载入的方式为. /文件名(. /usr/bin/main.fun)，注意有个空格。然后直接使用函数名调用。
+
+
+
+
+
+
+
+
+
+
+

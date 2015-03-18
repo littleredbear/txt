@@ -1,0 +1,9 @@
+
+
+sudo port -v selfupdate	--更新
+port search name	--搜索
+sudo port install name	-- 安装
+sudo port uninstall	name -- 卸载
+port outdated	-- 查看有更新的软件以及版本
+sudo port upgrade outdated 升级可以更新的软件
+
