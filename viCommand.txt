@@ -1,2 +1,3 @@
 
 '=' 对选中的块进行对齐
+set fileencoding	查看文件编码

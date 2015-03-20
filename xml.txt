@@ -1,0 +1,20 @@
+文档第一行可以是一个xml声明。它将文件识别为xml文件，可以简单的写成<?xml?>或包含xml版本<?xml versin="1.0" encoding="UTF-8"?>
+根元素的开始和结束标记用于包围xml文档的内容。一个文件只能有一个根元素。
+任何子元素都要完全包含在其父元素的开始和结束标记内部。每个同胞元素必须在下一个同胞元素开始之前结束。
+属性由一个名称－值对构成。值包含在双引号中，比如type="dessert"
+要实现构造良好的xml取决于如何处理xml。假设要根据菜谱类型进行分类。您需要确保每个<recipe>元素都包含type属性，以对菜谱进行分类。能够正确验证并确保存在属性值是非常重要的。
+验证就是根据元素规则检查文档的结构，以及如何为每个父元素定义子元素。这些规则是在文档类型定义（document type definition,DTD)或模式（schema）中定义的。验证要求创建自己的DTD或schema，然后在xml文件中引用DTD或schema文件。
+为了实现验证，必须在xml文档的顶部附近包含文档类型(DOCTYPE)。
+<!DOCTYPE MyDocs SYSTEM "filename.dtd">
+这个例子假设元素列表文件的名称是filename.dtd，并且位于您的计算机上。（如果指向公共文件位置，则SYSTEM和PUBLIC是相对的）。
+
+使用实体：
+实体可以是文本短语或特殊字符。它们可以指向内部或外部。
+不能直接在内容中输入特殊字符。如果要在文本中使用符号，必须使用它的字符代码将它设置为实体。为了设置实体，必须先为它创建一个名称，然后将它输入到内容中，以and符号（&)开始，并以分号（;)结束。例如&coname;然后在DOCTYPE的方括号内部输入代码，
+<!DOCTYPE MyDocs SYSTEM "filename.dtd" [ <!ENTITY coname "Rabid Turtle Industries"]>
+五个预定义实体引用：
+	&lt;		<
+	&gt;		>
+	&amp;		&
+	&apos;		'
+	&quot;		"
