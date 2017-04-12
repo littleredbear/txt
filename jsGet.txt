@@ -1,0 +1,29 @@
+
+_proto_ 是一个属性。而xx.prototype是一个对象。
+var test = { a : 1 }
+创建这个对象的时候会同时创建一个test.prototype的对象。而test.prototype这个对象是唯一存在的。
+function Person() {}
+var p = new Person();
+其实等价于	var p = {};p._proto_ = Person.prototype;Person.call(p);
+就是会创建一个唯一存在的Person.prototype对象。
+
+2级DOM事件有3个阶段。捕获阶段，目标阶段，冒泡阶段。捕获阶段和冒泡阶段只是提供一种事件的传播方向的选择。
+
+data:image/png;base64
+Data URI scheme 在RFC2397中定义，目的是将一些小的数据，直接嵌入到网页中，从而不用再从外部文件载入。
+Data URI scheme支持的类型有
+data:,	文本数据
+data:text/plain,	文本数据
+data:text/html,		HTML代码
+data:text/html;base64,	base64编码的HTML代码
+data:test/css,	css代码
+data:text/css;base64,	base64编码的css代码
+data:text/javascript,	javascript代码
+data:text/javascript;base64,	base64编码的javascript代码
+data:image/gif;base64,	base64编码的gif图片数据
+data:image/png;base64,	base64编码的png图片数据
+data:image/jpeg;base64,	base64编码的jpeg图片数据
+data:image/x-icon;base64,	base64编码的icon图片数据
+
+base64对照表	ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=
+=用来后缀。即如果最后剩下两个输入数据，在编码结果后加1个＝。如果剩下一个，在后面加2个＝。如果没有剩下，就不加。

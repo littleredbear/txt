@@ -1,3 +1,6 @@
 
 '=' 对选中的块进行对齐
 set fileencoding	查看文件编码
+
+vi -o|O file1 file2	水平｜垂直分割打开文件。
+ctrl + w + w 跳转窗口

@@ -1,0 +1,132 @@
+
+css规则由两个主要的部分构成：选择器，以及一条或多条声明。
+
+选择器通常是需要改变的HTML元素。
+h1 {color:red;}
+
+通配符选择器  匹配文档中的每个元素
+* {color:red;}
+
+选择器分组
+h1,h2 {color:red;}
+
+派生选择器 / 后代选择器	
+li strong {color:red;}  设置li元素中的strong元素的颜色
+
+子元素选择器  只选择某个元素的子元素
+h1 > strong {color:red;}
+
+相邻兄弟选择符 紧接在table元素后出现的所有兄弟ul元素
+table + ul {color:red;}
+
+id 选择器以＃来定义
+#red {color:red;}
+#sidebar p {margin:0;} id选择器和派生选择器
+
+类选择器以一个点号显示
+.center {text-align: center}
+.fancy td {color: #f60;} 类选择器和派生选择器.类名为fancy的元素内部的表格单元都会以灰色背景显示橙色文字。
+td .fancy {color: #f60} 类名为fancy的表格单元。	
+
+属性选择器
+[title] {color:red;} 带有title属性的所有元素设置样式。
+[title=W3School] {color:red;}	属性和值选择器
+[attribute=value]	选取带有指定属性和值的元素。
+[attribute~=value]	用于选取属性值中包含指定词汇的元素。
+[attribute|=value]	用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。
+[attribute^=value]	匹配属性值以指定值开头的每个元素。
+[attribute$=value]	匹配属性值以指定值结尾的每个元素。
+[attribute*=value]	匹配属性值中包含指定值的每个元素。
+
+
+背景
+background-color 属性为元素设置背景色。
+p {background-color: gray;}
+
+background-image 属性设置一个背景图像。
+body {background-image: url(/i/eg_bg_04.gif);}
+
+background-repeat 属性对背景图像进行平铺。
+属性值repeat在水平垂直方向上都平铺，repeat-x和repeat-y分别只在水平或垂直方向上重复。no-repeat不允许平铺。
+body {
+	background-image: url(/i/eg_bg_03.gif);
+	background-repeat: repeat-y;
+}
+
+background-position 属性改变图像在背景中的位置。
+可以使用一些关键字，也可以使用长度值，也可以使用百分数值。
+关键字：top, center, bottom, right, left.
+百分数值: 66% 33%.	表示水平2/3，垂直1/3处。百分数值同时应用于元素和图像，也就是说图像中2/3，1/3的点和元素中2/3，1/3的点对齐。
+长度值:	长度值解释的是元素内边距区左上角的偏移。偏移点是图像的左上角。
+
+background-attachment 属性防止图像滚动
+background-attachment fixed/scroll	固定／滚动
+
+框
+外边距，边框，内边距。margin，border，padding。
+内边距
+可以设置为数值或百分比，不可为负数。百分比是相对于父元素的width计算的。
+每个边框有3个方面：宽度，样式，颜色。
+
+样式：border-style: solid dotted dashed double。采用top-right-bottom-left的顺序。
+单边样式：border-top-style,border-right-style,border-bottom-style,border-left-style。
+border-style的默认值是none，要出现边框，必须声明一个边框样式。
+
+宽度：border-width.
+指定宽度有两种方法。指定长度值或者关键字（thin，medium，thick）。
+
+颜色：border-color.
+border-color:blue red;	值复制。上下是蓝色，左右是红色。按顺序整体复制。
+
+外边距：margin
+外边距合并。当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
+当一个元素包含在另一个元素中时，它们的上下边距也会合并。
+假设有一个空元素，它有外边距，但没有边框或填充。这种情况下，上外边距与下外边距就碰到一起，它们会发生合并。如果这个外边距遇到另一个元素的外边距，它还会发生合并。
+只有普通文档流中块框的垂直外边距才会发生合并。行内框，浮动框或绝对定位之间的外边距不会发生合并。
+
+
+定位
+一切皆为框。
+div，h1或p元素常常被称为块级元素。这意味着这些元素显示为一块内容。与之相反，span和strong等元素被称为行内元素，因为他们的内容显示在行中。
+可以使用display 属性改变生成的框的类型。
+
+块级框从上到下一个接一个地排列，框之间地垂直距离是由框地垂直外边距计算出来的。
+行内框在一行中水平布置。可以使用水平内边距，边框和外边距调整它们的间距。但是垂直内边距，边框和外边距不影响行内框的高度。由一行形成的水平框称为行框。设置行高（line-height)可以增加这个框的高度。
+
+position 属性值
+static	正常。
+relative	元素框偏移某个距离。元素仍保持其未定位前的形状，它原本所占的空间仍保留。
+absolute	元素框送文档流完全删除，并相对于其包含块定位。
+fixed	元素框的表现类似于将position设置为absolute，不过其包含块是视窗本身。
+
+相对定位	相对于文档中的初始位置
+使用相对定位时，无论是否进行移动，元素仍然占据原来的空间。因此，移动元素会导致它覆盖其他框。
+
+绝对定位	相对于最近的已定位祖先元素。如果不存在已定位的祖先元素，那么相对于最初的包含块。可以通过z-index 属性来控制这些框的堆放次序。
+
+浮动	float 属性
+
+
+LESS
+混入是指在一个class中引入另一个已经定义的class。
+.roundedCorners(@radius:5px) {
+	border-radius: @radius;
+	-webkit-border-radius: @radius;
+}
+在另外的样式选择器中使用
+#header {
+	.rounderCorners;    使用默认参数。
+}
+#footer {
+	.roundedCorners(10px);  使用指定参数。
+}
+
+嵌套
+a {
+	color:blue;
+	&:hover {		有&时解析的时同一个元素或此元素的伪类(a)，没有&解析是后代元素。
+		color:black;
+	}
+}
+
+

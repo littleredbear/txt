@@ -7,5 +7,6 @@ git config user.name reid
 git config user.email reid@reid.com
 
 git init
-git remote add http://xxxx
+git remote add origin http://xxxx
 git branch -u origin/master
+git checkout master
